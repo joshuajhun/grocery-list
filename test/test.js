@@ -3,6 +3,7 @@ import React from 'react';
 import {shallow, mount, render} from 'enzyme';
 import Main from '../lib/components/Main'
 import GroceryList from '../lib/components/GroceryList'
+import RenderList from '../lib/components/RenderList'
 
 require('locus')
 
@@ -41,5 +42,15 @@ describe('testing with enzyme', () => {
     expect(wrapper.state().listItems.length).to.deep.equal(1);
   });
 
+  it.only('renderlist should take an array of objects and interact with it' ,() => {
+    const items   = [{id: 1, input: 'nvm'}, {id:2, input: 'what is going on...'}]
+    const wrapper = shallow(<RenderList listItems= {items}/>)
+    let {id, input} = wrapper.find('Item').get(1).props
 
+
+    expect(wrapper.find('Item').length).to.equal(2)
+    expect(wrapper.find('Item').get(1).props.id).to.equal(id)
+    expect(wrapper.find('Item').get(1).props.input).to.equal(input)
+
+  });
 })
